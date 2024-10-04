@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
-    @section('title','Tasks List')
+    @section('title','List of Tasks')
     @section('content')
         <div>
-            <div>
-                <a href="{{route('tasks.create')}}">Add Task!</a>
-            </div>
+            <nav class="mb-4">
+                <a href="{{route('tasks.create')}}" class="link">Add Task!</a>
+            </nav>
         @forelse($tasks as $task)
-            <a href="{{route('tasks.show',['task'=>$task])}}">
+            <a href="{{route('tasks.show',['task'=>$task])}}" 
+            @class(['font-semibold','line-through' => $task->completed])
+            >
             <li>{{$task->titles}}</li>
             </a>    
 
@@ -16,7 +18,9 @@
         @endforelse
 
         @if ($tasks->count())
-            {{$tasks->links()}}
+            <nav class="mt-4 ">
+                {{$tasks->links()}}
+            </nav>
         @endif
         </div>
     @endsection
